@@ -1,0 +1,54 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1347\cocoasubrtf570
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red42\green47\blue60;\red244\green245\blue246;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 ******Installation Steps**********\
+/* @author: Dhirendra Singh\
+*/\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 Steps to implement and execute task on Charm++ system:\
+\
+step1) Download the source code : http://charm.cs.illinois.edu/software\
+step2) Install gcc and g++ compiler\
+	sudo apt-get install g++\
+	sudo apt-get install gcc\
+step3) Install Oracle java 8\
+\pard\pardeftab720
+\cf0 	sudo add-apt-repository ppa:webupd8team/java\
+	sudo apt-get update\
+	sudo apt-get install oracle-java8-installer\
+step4) Install make: sudo apt-get install make\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 step5) Build the system by following the below steps:\
+5 a) Are you building to run on local machine?\
+Select N\
+5 b)Do you have special network interconnect?\
+Select N\
+5 c)Specify a particular compiler?\
+Select Y and Select \'93gcc\'94\
+5 d)Specify any charm++ build options such as fortran compiler?\
+select N\
+5 e)Choose a set of compiler flags?\
+Select \'93production build [default]\'94\
+5 f)What do you want to build?\
+Select 1(charm++ [default])\
+5 g)Do u want to compile in parallel?\
+Select 5 (build with -j16[default])\
+5 h)Do u want to build now?\
+Select Y\
+\
+step6) Add the below commands in ~/.bashrc \
+	\cf2 \cb3 \expnd0\expndtw0\kerning0
+\shad\shadx0\shady-20\shadr0\shado0 \shadc0 ssh-agent -s`\
+	ssh-add charm.pem\
+\pard\pardeftab720
+\cf2 step7) /home/dhirendra/Downloads/charm/examples/charm++/queens/\
+step8) make\
+step9) Run the system for one node by running the below command\
+	./charmrun ./pgm ++nodegroup main 12 6 +p1\
+step10) To run on multiple nodes, write a file named \'93nodelist\'94 and add all the private ip address to that \'93nodelist\'94 file.\
+	/charmrun ./pgm ++nodegroup main 12 6 +p2(to run on 2 nodes)\
+p: refers to the number of nodes.}

@@ -1,0 +1,105 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1347\cocoasubrtf570
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red245\green245\blue245;\red52\green110\blue183;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 ******Installation Steps**********\
+/* @author: Dhirendra Singh\
+*/\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+ MATRIX compile and install:\
+\
+Step 1: Download MATRIX code to local machine, assuming the directory to download MATRIX is $dir:\
+\pard\pardeftab720
+\cf2 \cb3 \expnd0\expndtw0\kerning0
+    git clone https://github.com/kwangiit/matrix_v2.git\
+\pard\pardeftab720
+\cf2 \cb1 \expnd0\expndtw0\kerning0
+Step 2: Install google protocol buffer for both c and c++ bindings, refer to:\
+\
+Google protocol buffers c binding\'97>\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+http://code.google.com/p/protobuf-c/downloads/list\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+Google protocol buffers c++ binding\'97>\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+http://code.google.com/p/protobuf/downloads/list\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\
+Firstly install Google protocol buffers c++ binding and then install Google protocol buffers c binding since the latter depends on the former.\
+\
+To install Google protocol buffers c++ binding, by running:\
+   1) cd to <Google protocol buffers c++ binding> home directory\
+   2) ./configure \'97-prefix=/usr/local\
+   3) make\
+   4) sudo make install\
+To install Google protocol buffers c binding:\
+   follow the instructions, \
+   1) cd to <Google protocol buffers c binding> home directory\
+   2) ./configure \'97-prefix=/usr/local\
+   3) make\
+   4) sudo make install\
+\
+After installing Google protocol buffers c and c++ bindings to customized directory, export the below path\
+1. vi ~/.bashrc\
+2. append the following lines to the end,\
+	export USER_LIB=/usr/local/install/lib/\
+	export USER_INCLUDE=/usr/local/install/include/\
+	export LD_LIBRARY_PATH=/usr/local/install/lib/\
+3. source ~/.bashrc\
+\pard\pardeftab720
+\cf2 \cb3 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720
+\cf2 \cb1 \expnd0\expndtw0\kerning0
+Step 3: Go to the matrix directory to compile ZHT:\
+\pard\pardeftab720
+\cf2 \cb3 \expnd0\expndtw0\kerning0
+\
+1) cd $dir/matrix_v2/ZHT/src\
+2) make\
+3) check whether ZHT is compiled correcly:\
+4) If the command "./zhtserver -z zht.conf -n neighbor.conf" is running, then ZHT is compiled correctly\
+\pard\pardeftab720
+\cf2 \cb1 \expnd0\expndtw0\kerning0
+Step 4: Go to the matrix directory to compile MATRIX:\
+\pard\pardeftab720
+\cf2 \cb3 \expnd0\expndtw0\kerning0
+1) cd $dir/matrix_v2-master/matrix/src\
+2) make\
+\pard\pardeftab720
+\cf2 \cb1 \expnd0\expndtw0\kerning0
+Step 5: Run MATRIX:\
+\pard\pardeftab720
+\cf2 \cb3 \expnd0\expndtw0\kerning0
+1) Go to the matrix script directory: cd $dir/matrix_v2-master/matrix/script\
+2) Change the scheduler port number to 60000 and ZHT server port number to 50000.We used DAG as \'93Pipeline\'94.\
+3) Write all the Private IP\'92s in \'93host\'94 at \'93$dir/matrix_v2-master/matrix/script/\'93\
+4) Change the \'93.pem\'94 key downloaded from Amazon EC2 in the script \'93./staraws.sh\'94\
+5) Run command: ./startaws.sh 1000(number of tasks) 1(number of nodes) /home/ubuntu/matrix_v2-master/matrix(matrix path) /home/ubuntu/matrix_v2-master/ZHT/src(ZHT src path) Pipeline(Type of DAG) 10 0 0\
+\
+      \cb1 \expnd0\expndtw0\kerning0
+Potential Problems\
+[1] google protocol buffer is not compatible\
+\cb3 \expnd0\expndtw0\kerning0
+\
+Recompile the .proto files in the source files of both matrix and ZHT:\
+\
+(1) go to the ZHT src folder: cd $dir/matrix_v2-master/ZHT/src\
+\
+(2) compile c++ bindings: protoc --cpp_out=. *.proto\
+\
+(3) compile c bindings: protoc-c --c_out=. *.proto\
+\
+(4) go to the matrix src folder: cd $dir/matrix_v2-master/matrix/src\
+\
+(5) repeat step 2 and step 3 }
